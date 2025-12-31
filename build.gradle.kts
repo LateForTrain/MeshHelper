@@ -1,5 +1,12 @@
+import org.meshtastic.buildlogic.FlavorDimension
+import org.meshtastic.buildlogic.MeshtasticFlavor
+
 plugins {
     alias(libs.plugins.android.application)
+    alias(libs.plugins.meshtastic.android.application.compose)
+    alias(libs.plugins.kotlin.parcelize)
+    alias(libs.plugins.kotlin.serialization)
+    alias(libs.plugins.kover)
 }
 
 kotlin {
@@ -21,6 +28,7 @@ android {
         vectorDrawables {
             useSupportLibrary = true
         }
+        missingDimensionStrategy(FlavorDimension.marketplace.name, MeshtasticFlavor.google.name)
     }
 
     buildTypes {
@@ -39,7 +47,20 @@ android {
 }
 
 dependencies {
-    implementation(libs.androidx.core.ktx)
+    //Ref to core Meshtastic files
+    implementation(projects.core.model)
+    implementation(projects.core.proto)
+    implementation(projects.core.service)
+
+    implementation(libs.androidx.activity)
+    implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.appcompat)
+    implementation(libs.androidx.constraintlayout)
+    implementation(libs.androidx.compose.material3)
+    implementation(libs.androidx.compose.ui.tooling.preview)
+    implementation(libs.androidx.core.ktx)
+    implementation(libs.androidx.lifecycle.process)
+    implementation(libs.androidx.lifecycle.runtime.compose)
+    implementation(libs.androidx.lifecycle.viewmodel.compose)
     implementation(libs.material)
 }
