@@ -1,5 +1,6 @@
 package com.latefortrain.meshhelper
 
+import android.app.Application
 import android.os.Bundle
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
@@ -8,6 +9,7 @@ import com.latefortrain.meshhelper.repository.GPSManager
 import com.latefortrain.meshhelper.ui.startscreen.StartScreen
 import com.latefortrain.meshhelper.viewmodel.GPSViewModel
 import com.latefortrain.meshhelper.viewmodel.MeshViewModel
+import com.latefortrain.meshhelper.viewmodel.QRViewModel
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -15,6 +17,7 @@ class MainActivity : AppCompatActivity() {
 
         val meshManager = (application as MainApplication).meshManager
         val gpsManager = (application as MainApplication).gpsManager
+        val qrManager = (application as MainApplication).qrManager
 
         setContent {
             val meshViewModel: MeshViewModel = viewModel {
@@ -23,7 +26,11 @@ class MainActivity : AppCompatActivity() {
             val gpsViewModel: GPSViewModel = viewModel {
                 GPSViewModel(gpsManager)
             }
-            StartScreen(meshViewModel,gpsViewModel)
+
+            val qrViewModel: QRViewModel = viewModel{
+                QRViewModel(qrManager)
+            }
+            StartScreen(meshViewModel,gpsViewModel,qrViewModel)
         }
     }
 }
